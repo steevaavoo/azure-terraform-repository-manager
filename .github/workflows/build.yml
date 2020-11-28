@@ -29,11 +29,6 @@ env:
   TERRAFORM_STORAGE_CONTAINER_NAME: "terraform"
   TERRAFORM_STORAGE_RG: "rg-tfstate-payg-001"
   TERRAFORM_VERSION: "0.12.29"
-
-  TF_VAR_prefix: "${{ env.PREFIX }}"
-  TF_VAR_storage_account_name: "${{ env.TERRAFORM_STORAGE_ACCOUNT }}"
-  TF_VAR_location: "${{ env.LOCATION }}"
-  TF_VAR_azure_resourcegroup_name: "${{ PREFIX }}-rg-aks-dev-001"
   STORAGE_KEY: "DYNAMICALLY UPDATED BY GET_STORAGE_KEY"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -48,9 +43,14 @@ jobs:
       - name: Check Out code
         uses: actions/checkout@v2
 
-      # Fixing default file permissions
-      - name: Set Script Folder permissions
-        run: chmod --recursive +x ./scripts/
+      # Fixing default file permissions and concatenating environment variables
+      - name: Init Tasks
+        run: |
+          chmod --recursive +x ./scripts/
+          echo "TF_VAR_prefix=${{ env.PREFIX }}" >> $GITHUB_ENV
+          echo "TF_VAR_storage_account_name=${{ env.TERRAFORM_STORAGE_ACCOUNT }}" >> $GITHUB_ENV
+          echo "TF_VAR_location=${{ env.LOCATION }}" >> $GITHUB_ENV
+          echo "TF_VAR_azure_resourcegroup_name=${{ PREFIX }}-rg-aks-dev-001" >> $GITHUB_ENV
 
       # Azure
       - name: Log in to Azure
