@@ -1,17 +1,25 @@
-# This is a basic workflow to help you get started with Actions
+name: Build
 
-name: CI
+# Workflow reference
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
+  # push:
+  #   branches: [ develop ]
+  # pull_request:
+  #   branches: [ develop ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+# Declaring Environment Variables - normally we would include secrets only per-step, rather than globally.
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,14 +31,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Check Out code
+        uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Azure Login
+      - name: Log in to Azure
+        run: ./scripts/azure_login.sh
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Run a test az command
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          az resource list
