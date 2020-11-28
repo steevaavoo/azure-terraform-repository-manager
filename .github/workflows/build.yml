@@ -50,7 +50,7 @@ jobs:
           echo "TF_VAR_prefix=${{ env.PREFIX }}" >> $GITHUB_ENV
           echo "TF_VAR_storage_account_name=${{ env.TERRAFORM_STORAGE_ACCOUNT }}" >> $GITHUB_ENV
           echo "TF_VAR_location=${{ env.LOCATION }}" >> $GITHUB_ENV
-          echo "TF_VAR_azure_resourcegroup_name=${{ PREFIX }}-rg-aks-dev-001" >> $GITHUB_ENV
+          echo "TF_VAR_azure_resourcegroup_name=${{ env.PREFIX }}-rg-aks-dev-001" >> $GITHUB_ENV
 
       # Azure
       - name: Log in to Azure
