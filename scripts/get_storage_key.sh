@@ -13,3 +13,7 @@ echo "FINISHED: $message."
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-an-environment-variable
 # Dynamically update GitHub Workflow Environment Variable
 echo "STORAGE_KEY=$storage_key" >> "$GITHUB_ENV"
+
+# Mask sensitive env var
+# https://help.github.com/en/actions/reference/development-tools-for-github-actions#example-masking-an-environment-variable
+echo "::add-mask::$storage_key"
