@@ -12,5 +12,7 @@ set -euo pipefail
 trap "echo 'error: Script failed: see failed command above'" ERR
 
 # https://docs.microsoft.com/en-us/cli/azure/reference-index?view=azure-cli-latest#az_login
+# Make sure a Contributor Role Assignment exists for this subscription.
 # Log in with a service principal using client secret.
+
 az login --service-principal --username "$ARM_CLIENT_ID" --password "$ARM_CLIENT_SECRET" --tenant "$ARM_TENANT_ID"
