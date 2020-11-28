@@ -12,5 +12,5 @@ echo "FINISHED: Creating Storage Account."
 
 # Storage Container
 echo "STARTED: Creating Storage Container..."
-az storage container create --name "terraform" --account-name "$TERRAFORM_STORAGE_ACCOUNT"
+az storage container create --name "$TERRAFORM_STORAGE_CONTAINER_NAME" --account-name "$TERRAFORM_STORAGE_ACCOUNT"
 echo "FINISHED: Creating Storage Container."
