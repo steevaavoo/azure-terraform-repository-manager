@@ -5,7 +5,7 @@ trap "echo 'error: Script failed: see failed command above'" ERR
 
 message="Getting Storage Account Key"
 echo "STARTED: $message..."
-storage_key=(az storage account keys list --resource-group "$TERRAFORM_STORAGE_RG" --account-name "$TERRAFORM_STORAGE_ACCOUNT" --query [0].value --output tsv)
+storage_key=$(az storage account keys list --resource-group "$TERRAFORM_STORAGE_RG" --account-name "$TERRAFORM_STORAGE_ACCOUNT" --query [0].value --output tsv)
 echo "FINISHED: $message."
 
 # Write-Verbose "Storage Key is: [$storage_key]"
