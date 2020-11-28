@@ -12,5 +12,4 @@ set -euo pipefail
 trap "echo 'error: Script failed: see failed command above'" ERR
 
 # Log in with a service principal using client secret.
-az login --service-principal --username "$ARM_CLIENT_ID" --password "$ARM_CLIENT_SECRET" --tenant "$ARM_TENANT_ID" \
-  --subscription "$ARM_SUBSCRIPTION_ID"
+az login --service-principal --username "$ARM_CLIENT_ID" --password "$ARM_CLIENT_SECRET" --tenant "$ARM_TENANT_ID" --subscription "$ARM_SUBSCRIPTION_ID"
