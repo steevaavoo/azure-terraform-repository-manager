@@ -78,4 +78,4 @@ jobs:
       # Terraform Initialise - store state in remote backend
       - name: Terraform Init
         working-directory: ${{ env.TERRAFORM_FOLDER }}
-        run: ${{ env.SCRIPTS_FOLDER }}/terraform_init.sh
+        run: ../${{ env.SCRIPTS_FOLDER }}/terraform_init.sh
