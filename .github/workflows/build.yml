@@ -15,10 +15,15 @@ on:
   workflow_dispatch:
 
 # Declaring Environment Variables - normally we would include secrets only per-step, rather than globally.
+# https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging#example-names
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+  TERRAFORM_STORAGE_RG: "rg-tfstate-payg-001"
+  TERRAFORM_STORAGE_ACCOUNT: "sttfstatepayg001"
+  LOCATION: "ukwest"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
