@@ -1,4 +1,4 @@
-name: Build
+name: Destroy
 
 # Workflow reference
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
@@ -37,16 +37,13 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  build:
-    # The type of runner that the job will run on
+  destroy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check Out code
         uses: actions/checkout@v2
 
-      # Fixing default file permissions and concatenating environment variables
       - name: Init Tasks
         run: |
           chmod --recursive +x ./scripts/
@@ -58,10 +55,6 @@ jobs:
       - name: Log in to Azure
         working-directory: ${{ env.SCRIPTS_FOLDER }}
         run: ./azure_login.sh
-
-      - name: Create Storage for Terraform State
-        working-directory: ${{ env.SCRIPTS_FOLDER }}
-        run: ./create_tfstate_storage.sh
 
       - name: Get Storage Key
         working-directory: ${{ env.SCRIPTS_FOLDER }}
@@ -79,15 +72,11 @@ jobs:
           # A value of `latest` will install the latest version of Terraform CLI. Defaults to `latest`.
           terraform_version: ${{ env.TERRAFORM_VERSION }}
 
-      # Store state in backend
+      # Store/access state in backend
       - name: Terraform Init
         working-directory: ${{ env.TERRAFORM_FOLDER }}
         run: ../${{ env.SCRIPTS_FOLDER }}/terraform_init.sh
 
-      - name: Terraform Plan
+      - name: Terraform Destroy
         working-directory: ${{ env.TERRAFORM_FOLDER }}
-        run: ../${{ env.SCRIPTS_FOLDER }}/terraform_plan.sh
-
-      - name: Terraform Apply
-        working-directory: ${{ env.TERRAFORM_FOLDER }}
-        run: ../${{ env.SCRIPTS_FOLDER }}/terraform_apply.sh
+        run: ../${{ env.SCRIPTS_FOLDER }}/terraform_destroy.sh
