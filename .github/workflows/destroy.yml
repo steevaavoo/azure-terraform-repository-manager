@@ -80,3 +80,7 @@ jobs:
       - name: Terraform Destroy
         working-directory: ${{ env.TERRAFORM_FOLDER }}
         run: ../${{ env.SCRIPTS_FOLDER }}/terraform_destroy.sh
+
+      - name: Destroy Terraform State Storage
+        working-directory: ${{ env.TERRAFORM_FOLDER }}
+        run: ../${{ env.SCRIPTS_FOLDER }}/destroy_tfstate_storage.sh
