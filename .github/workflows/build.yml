@@ -71,10 +71,17 @@ jobs:
       # ..@v1 will always yield latest version if project has correct hashing of latest stable build to major version
         uses: hashicorp/setup-terraform@v1
         with:
-          # The version of Terraform CLI to install. Instead of full version string you can also specify constraint string starting with "<" (for example `<1.13.0`) to install the latest version satisfying the constraint. A value of `latest` will install the latest version of Terraform CLI. Defaults to `latest`.
+          # The version of Terraform CLI to install. Instead of full version string you can also specify constraint
+          # string starting with "<" (for example `<1.13.0`) to install the latest version satisfying the constraint.
+          # A value of `latest` will install the latest version of Terraform CLI. Defaults to `latest`.
           terraform_version: ${{ env.TERRAFORM_VERSION }}
 
-      # Terraform Initialise - store state in remote backend
+      # Terraform Initialise
       - name: Terraform Init
         working-directory: ${{ env.TERRAFORM_FOLDER }}
         run: ../${{ env.SCRIPTS_FOLDER }}/terraform_init.sh
+
+       # Terraform Plan - store state in backend
+      - name: Terraform Plan
+        working-directory: ${{ env.TERRAFORM_FOLDER }}
+        run: ../${{ env.SCRIPTS_FOLDER }}/terraform_plan.sh
