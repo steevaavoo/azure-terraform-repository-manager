@@ -88,3 +88,8 @@ jobs:
       - name: Terraform Plan
         working-directory: ${{ env.TERRAFORM_FOLDER }}
         run: ../${{ env.SCRIPTS_FOLDER }}/terraform_plan.sh
+
+       # Terraform Plan - store state in backend
+      - name: Terraform Apply
+        working-directory: ${{ env.TERRAFORM_FOLDER }}
+        run: ../${{ env.SCRIPTS_FOLDER }}/terraform_apply.sh
