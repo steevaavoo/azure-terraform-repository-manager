@@ -2,7 +2,7 @@
 
 # Storage Container
 echo "STARTED: Deleting Storage Container..."
-az storage container delete --name "$TERRAFORM_STORAGE_CONTAINER_NAME" --account-name "$TERRAFORM_STORAGE_ACCOUNT" --yes
+az storage container delete --name "$TERRAFORM_STORAGE_CONTAINER_NAME" --account-name "$TERRAFORM_STORAGE_ACCOUNT"
 echo "FINISHED: Deleting Storage Container."
 
 # Storage Account
