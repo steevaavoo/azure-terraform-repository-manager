@@ -9,6 +9,7 @@ resource "azurerm_container_registry" "stvacr" {
   location                 = azurerm_resource_group.stvrg.location
   sku                      = var.acr_sku
   admin_enabled            = var.acr_admin_enabled
+}
 
 resource "azurerm_kubernetes_cluster" "stvaks" {
   name                = var.container_registry_name
@@ -30,4 +31,3 @@ resource "azurerm_kubernetes_cluster" "stvaks" {
     Environment = "Dev"
   }
 }
-
