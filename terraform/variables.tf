@@ -11,8 +11,9 @@ variable "azurerm_kubernetes_cluster_name" {
   default = "steevaavoo-aks1"
 }
 
+# This should be in the env vars as will be used by az acr login in the Docker image build script
 variable "container_registry_name" {
-  default = "stvcontReg1"
+  default = "stvcontreg1"
 }
 
 variable "acr_admin_enabled" {
