@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 # az acr login --name $container_registry_name
 # $acrRepoTags = az acr repository show-tags --name $container_registry_name --repository $CONTAINER_IMAGE_NAME | ConvertFrom-Json
 
-Push-Location .\app
+Push-Location ..\app
 
 # Logging in to our container registry
 az acr login --name $env:CONTAINER_REGISTRY_NAME
