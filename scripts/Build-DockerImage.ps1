@@ -10,9 +10,11 @@ $ErrorActionPreference = "Stop"
 # az acr login --name $container_registry_name
 # $acrRepoTags = az acr repository show-tags --name $container_registry_name --repository $CONTAINER_IMAGE_NAME | ConvertFrom-Json
 
+# Need to go back a step as our working folder is ./scripts
 Push-Location ..\app
 
 # Logging in to our container registry
+# https://docs.microsoft.com/en-us/cli/azure/acr?view=azure-cli-latest#az_acr_login
 az acr login --name $env:CONTAINER_REGISTRY_NAME
 
 # Check if tag already exists in ACR
@@ -22,7 +24,7 @@ if ($env:CONTAINER_IMAGE_TAG -notin $acrRepoTags) {
 
     # Local build
     # Format: repo/image:tag
-    # docker build . -t adamrushuk/nodeapp:latest
+    # docker build . -t steevaavoo/nodeapp:latest
 
     # ACR build
     $message = "Building docker image via ACR"

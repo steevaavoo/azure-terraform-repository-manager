@@ -102,4 +102,6 @@ jobs:
       - name: Build Docker image
         working-directory: ${{ env.SCRIPTS_FOLDER }}
         run: ./Build-DockerImage.ps1
+        # Specify shell here as default is to use agent's default shell
+        # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: pwsh
