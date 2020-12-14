@@ -5,6 +5,8 @@ variable "azure_resourcegroup_name" {}
 
 variable "prefix" {}
 
+# TODO: make sure variables are placed appropriately if scoped only to Terraform resource creation
+
 variable "azurerm_kubernetes_cluster_name" {
   default = "steevaavoo-aks1"
 }
