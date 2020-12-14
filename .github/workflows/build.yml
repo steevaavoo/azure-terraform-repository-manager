@@ -73,11 +73,6 @@ jobs:
         working-directory: ${{ env.SCRIPTS_FOLDER }}
         run: ./get_storage_key.sh
 
-      - name: Build Docker image
-        working-directory: ${{ env.SCRIPTS_FOLDER }}
-        run: ./Build-DockerImage.ps1
-        shell: pwsh
-
       # Terraform
       - name: HashiCorp - Setup Terraform
       # You may pin to the exact commit or the version.
@@ -102,3 +97,9 @@ jobs:
       - name: Terraform Apply
         working-directory: ${{ env.TERRAFORM_FOLDER }}
         run: ../${{ env.SCRIPTS_FOLDER }}/terraform_apply.sh
+
+      # Docker
+      - name: Build Docker image
+        working-directory: ${{ env.SCRIPTS_FOLDER }}
+        run: ./Build-DockerImage.ps1
+        shell: pwsh
