@@ -32,7 +32,7 @@ env:
   TERRAFORM_STORAGE_CONTAINER_NAME: "terraform"
   TERRAFORM_STORAGE_RG: "rg-tfstate-payg-001"
   TERRAFORM_VERSION: "0.12.29"
-  TF_VAR_container_registry_name: "stvcontreg1"
+  CONTAINER_REGISTRY_NAME: 'stvcontreg1'
   CONTAINER_IMAGE_NAME: 'nodeapp'
   CONTAINER_IMAGE_TAG: '2020-12-14'
 
@@ -57,6 +57,7 @@ jobs:
           echo "TF_VAR_prefix=${{ env.PREFIX }}" >> $GITHUB_ENV
           echo "TF_VAR_location=${{ env.LOCATION }}" >> $GITHUB_ENV
           echo "TF_VAR_azure_resourcegroup_name=${{ env.PREFIX }}-rg-aks-dev-001" >> $GITHUB_ENV
+          echo "TF_VAR_container_registry_name=${{ env.CONTAINER_REGISTRY_NAME }}" >> $GITHUB_ENV
           echo "CONTAINER_IMAGE_TAG_FULL=${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_TAG }}" >> $GITHUB_ENV
 
       # Azure
@@ -75,6 +76,7 @@ jobs:
       - name: Build Docker image
         working-directory: ${{ env.SCRIPTS_FOLDER }}
         run: ./Build-DockerImage.ps1
+        shell: pwsh
 
       # Terraform
       - name: HashiCorp - Setup Terraform

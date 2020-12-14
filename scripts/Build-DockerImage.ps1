@@ -13,10 +13,10 @@ $ErrorActionPreference = "Stop"
 Push-Location .\app
 
 # Logging in to our container registry
-az acr login --name $env:TF_VAR_container_registry_name
+az acr login --name $env:CONTAINER_REGISTRY_NAME
 
 # Check if tag already exists in ACR
-$acrRepoTags = az acr repository show-tags --name $env:TF_VAR_container_registry_name --repository $env:CONTAINER_IMAGE_NAME | ConvertFrom-Json
+$acrRepoTags = az acr repository show-tags --name $env:CONTAINER_REGISTRY_NAME --repository $env:CONTAINER_IMAGE_NAME | ConvertFrom-Json
 
 if ($env:CONTAINER_IMAGE_TAG -notin $acrRepoTags) {
 
@@ -27,7 +27,7 @@ if ($env:CONTAINER_IMAGE_TAG -notin $acrRepoTags) {
     # ACR build
     $message = "Building docker image via ACR"
     Write-Output "STARTED: $message..."
-    az acr build --image $env:CONTAINER_IMAGE_TAG_FULL --registry $env:TF_VAR_container_registry_name .
+    az acr build --image $env:CONTAINER_IMAGE_TAG_FULL --registry $env:CONTAINER_REGISTRY_NAME .
     Write-Output "FINISHED: $message."
 } else {
     Write-Output "SKIPPING: Building docker image via ACR...[CONTAINER_IMAGE_TAG '$env:CONTAINER_IMAGE_TAG'] already exists."
