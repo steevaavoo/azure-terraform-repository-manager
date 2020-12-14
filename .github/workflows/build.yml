@@ -73,7 +73,7 @@ jobs:
         run: ./get_storage_key.sh
 
       - name: Build Docker image
-        working-directory: ./app
+        working-directory: ${{ env.SCRIPTS_FOLDER }}
         run: ./Build-DockerImage.ps1
 
       # Terraform
