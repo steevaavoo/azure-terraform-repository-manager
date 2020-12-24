@@ -3,6 +3,8 @@
 # Ensure any errors fail the build
 $ErrorActionPreference = "Stop"
 
+Push-Location ..\manifests
+
 # Replace tokens
 <#
     # local testing - manually add env vars
@@ -34,7 +36,6 @@ Write-Output "`nSTARTED: $message..."
 # Write-Output "`nAPPLYING: ClusterIssuers..."
 # kubectl apply -f ./manifests/cluster-issuer-staging.yml
 # kubectl apply -f ./manifests/cluster-issuer-prod.yml
-
 # Applications
 Write-Output "`nAPPLYING: Applications..."
 # kubectl apply -n ingress-tls -f ./manifests/azure-vote.yml
@@ -50,3 +51,5 @@ kubectl delete -n ingress-tls -f ./manifests/ingress.yml
 kubectl delete -n ingress-tls -f ./manifests/azure-vote.yml
 #>
 Write-Output "FINISHED: $message."
+
+Pop-Location
