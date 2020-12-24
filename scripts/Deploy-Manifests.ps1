@@ -39,7 +39,7 @@ Write-Output "`nSTARTED: $message..."
 # Applications
 Write-Output "`nAPPLYING: Applications..."
 # kubectl apply -n ingress-tls -f ./manifests/azure-vote.yml
-kubectl apply --namespace nodeapp --filename ./manifests/nodeapp.yml
+kubectl apply --namespace nodeapp --filename ./nodeapp.yml
 
 # # Ingress
 # Write-Output "`nAPPLYING: Ingress..."
