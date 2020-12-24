@@ -105,3 +105,11 @@ jobs:
         # Specify shell here as default is to use agent's default shell
         # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: pwsh
+
+        # Kubernetes
+      - name: Deploy Manifests
+        working-directory: ${{ env.SCRIPTS_FOLDER }}
+        run: ./Deploy-Manifests.ps1
+        # Specify shell here as default is to use agent's default shell
+        # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
+        shell: pwsh
