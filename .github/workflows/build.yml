@@ -56,6 +56,7 @@ jobs:
           echo "TF_VAR_prefix=${{ env.PREFIX }}" >> $GITHUB_ENV
           echo "TF_VAR_location=${{ env.LOCATION }}" >> $GITHUB_ENV
           echo "TF_VAR_azure_resourcegroup_name=${{ env.PREFIX }}-rg-aks-dev-001" >> $GITHUB_ENV
+          echo "TF_VAR_azurerm_kubernetes_cluster_name=${{ env.PREFIX }}-aks1" >> $GITHUB_ENV
           echo "TF_VAR_container_registry_name=${{ env.CONTAINER_REGISTRY_NAME }}" >> $GITHUB_ENV
           echo "CONTAINER_IMAGE_TAG_FULL=${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_TAG }}" >> $GITHUB_ENV
 

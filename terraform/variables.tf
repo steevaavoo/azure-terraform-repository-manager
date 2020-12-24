@@ -5,9 +5,7 @@ variable "azure_resourcegroup_name" {}
 
 variable "prefix" {}
 
-variable "azurerm_kubernetes_cluster_name" {
-  default = "steevaavoo-aks1"
-}
+variable "azurerm_kubernetes_cluster_name" {}
 
 variable "container_registry_name" {}
 
