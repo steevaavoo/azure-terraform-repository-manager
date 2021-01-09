@@ -8,6 +8,4 @@ cd ../manifests
 # Update kustomization.yaml file
 kustomize edit set image nodeapp="$CONTAINER_IMAGE_FQDN:$CONTAINER_IMAGE_TAG"
 
-cat ./kustomization.yaml
-
 # Customisations are applied in deploy-manifests.ps1 with --kustomize argument
