@@ -10,6 +10,4 @@ resources:
 
 # https://kubectl.docs.kubernetes.io/references/kustomize/images/
 # https://github.com/kubernetes-sigs/kustomize/blob/master/examples/image.md
-images:
-- name: stvcontreg1.azurecr.io/nodeapp
-  newTag: "2021-01-09"
+images: []
