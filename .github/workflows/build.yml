@@ -34,7 +34,7 @@ env:
   TERRAFORM_VERSION: "0.12.29"
   CONTAINER_REGISTRY_NAME: 'stvcontreg1'
   CONTAINER_IMAGE_NAME: 'nodeapp'
-  CONTAINER_IMAGE_TAG: '2021-01-09'
+  CONTAINER_IMAGE_TAG: '2021-01-08'
   STORAGE_KEY: "DYNAMICALLY UPDATED BY GET_STORAGE_KEY"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -105,6 +105,11 @@ jobs:
         # Specify shell here as default is to use agent's default shell
         # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: pwsh
+
+      # Kustomize
+      - name: Customise Kubernetes YAML
+        working-directory: ${{ env.SCRIPTS_FOLDER }}
+        run: ./kustomize.sh
 
         # Kubernetes
       - name: Deploy Manifests
