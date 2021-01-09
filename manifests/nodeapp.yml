@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: nodeapp
-          image: stvcontreg1.azurecr.io/nodeapp:2020-12-14
+          image: nodeapp
           ports:
           - containerPort: 80
 ---
