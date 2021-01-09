@@ -1,0 +1,15 @@
+# kustomization.yaml
+# https://kubectl.docs.kubernetes.io/references/kubectl/kustomize/
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# https://kubectl.docs.kubernetes.io/references/kustomize/resource/
+# Each entry in this list must be a path to a file, or a path (or URL) referring to another kustomization directory
+resources:
+- nodeapp.yml
+
+# https://kubectl.docs.kubernetes.io/references/kustomize/images/
+# https://github.com/kubernetes-sigs/kustomize/blob/master/examples/image.md
+images:
+- name: stvcontreg1.azurecr.io/nodeapp
+  newTag: "2021-01-09"

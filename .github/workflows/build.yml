@@ -34,7 +34,7 @@ env:
   TERRAFORM_VERSION: "0.12.29"
   CONTAINER_REGISTRY_NAME: 'stvcontreg1'
   CONTAINER_IMAGE_NAME: 'nodeapp'
-  CONTAINER_IMAGE_TAG: '2020-12-14'
+  CONTAINER_IMAGE_TAG: '2021-01-09'
   STORAGE_KEY: "DYNAMICALLY UPDATED BY GET_STORAGE_KEY"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
