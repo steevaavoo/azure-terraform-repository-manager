@@ -39,7 +39,9 @@ Write-Output "`nSTARTED: $message..."
 # Applications
 Write-Output "`nAPPLYING: Applications..."
 # kubectl apply -n ingress-tls -f ./manifests/azure-vote.yml with customisations from kustomization.yaml
-kubectl apply --namespace nodeapp --filename ./nodeapp.yml --kustomize
+# Process a kustomization directory
+kubectl apply --kustomize .
+kubectl apply --namespace nodeapp --filename ./nodeapp.yml
 
 # # Ingress
 # Write-Output "`nAPPLYING: Ingress..."
