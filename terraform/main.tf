@@ -36,6 +36,9 @@ resource "azurerm_kubernetes_cluster" "stvaks" {
 
 # Create Role Assignment for AKS to Pull from Container Registry
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment
+# ! A custom role needs to be created and assigned to the Subscription in order that terraform
+# ! has sufficient permissions to create this Role Assignment
+# ! https://github.com/adamrushuk/devops-lab/tree/develop/scripts
 # depends_on not required here because dependency is implicit thanks to using resource ids rather than
 # env variables or hard-coded values - terraform will wait until "azurerm_container_registry.stvacr.id" and
 # the "azurerm_kubernetes_cluster....." exists
