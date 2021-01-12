@@ -32,6 +32,9 @@ env:
   TERRAFORM_STORAGE_CONTAINER_NAME: "terraform"
   TERRAFORM_STORAGE_RG: "rg-tfstate-payg-001"
   TERRAFORM_VERSION: "0.12.29"
+  CONTAINER_REGISTRY_NAME: 'stvcontreg1'
+  CONTAINER_IMAGE_NAME: 'nodeapp'
+  CONTAINER_IMAGE_TAG: '2021-01-08'
   STORAGE_KEY: "DYNAMICALLY UPDATED BY GET_STORAGE_KEY"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -39,7 +42,7 @@ jobs:
 
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -53,6 +56,10 @@ jobs:
           echo "TF_VAR_prefix=${{ env.PREFIX }}" >> $GITHUB_ENV
           echo "TF_VAR_location=${{ env.LOCATION }}" >> $GITHUB_ENV
           echo "TF_VAR_azure_resourcegroup_name=${{ env.PREFIX }}-rg-aks-dev-001" >> $GITHUB_ENV
+          echo "TF_VAR_azurerm_kubernetes_cluster_name=${{ env.PREFIX }}-aks1" >> $GITHUB_ENV
+          echo "TF_VAR_container_registry_name=${{ env.CONTAINER_REGISTRY_NAME }}" >> $GITHUB_ENV
+          echo "CONTAINER_IMAGE_TAG_FULL=${{ env.CONTAINER_IMAGE_NAME }}:${{ env.CONTAINER_IMAGE_TAG }}" >> $GITHUB_ENV
+          echo "CONTAINER_IMAGE_FQDN=${{ env.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ env.CONTAINER_IMAGE_NAME }}" >> $GITHUB_ENV
 
       # Azure
       - name: Log in to Azure
@@ -91,3 +98,24 @@ jobs:
       - name: Terraform Apply
         working-directory: ${{ env.TERRAFORM_FOLDER }}
         run: ../${{ env.SCRIPTS_FOLDER }}/terraform_apply.sh
+
+      # Docker
+      - name: Build Docker image
+        working-directory: ${{ env.SCRIPTS_FOLDER }}
+        run: ./Build-DockerImage.ps1
+        # Specify shell here as default is to use agent's default shell
+        # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
+        shell: pwsh
+
+      # Kustomize
+      - name: Customise Kubernetes YAML
+        working-directory: ${{ env.SCRIPTS_FOLDER }}
+        run: ./kustomize.sh
+
+        # Kubernetes
+      - name: Deploy Manifests
+        working-directory: ${{ env.SCRIPTS_FOLDER }}
+        run: ./Deploy-Manifests.ps1
+        # Specify shell here as default is to use agent's default shell
+        # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
+        shell: pwsh
