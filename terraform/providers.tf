@@ -12,6 +12,6 @@ terraform {
 
 # https://github.com/terraform-providers/terraform-provider-azurerm/releases
 provider "azurerm" {
-  version = "2.38.0"
+  version = "2.44.0"
   features {}
 }
