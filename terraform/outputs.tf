@@ -28,5 +28,5 @@ output "kube_config" {
 output "full_object" {
   description = "Full AKS object"
   value       = azurerm_kubernetes_cluster.stvaks
-  sensitive   = false
+  sensitive   = true
 }
