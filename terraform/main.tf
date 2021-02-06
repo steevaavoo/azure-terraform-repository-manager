@@ -48,12 +48,12 @@ resource "azurerm_role_assignment" "stvacr" {
   principal_id         = azurerm_kubernetes_cluster.stvaks.kubelet_identity[0].object_id
 }
 
-resource "helm_release" "gitlab" {
-  name             = "gitlab-omnibus"
-  chart            = "../charts/gitlab-omnibus"
-  namespace        = "gitlab"
-  create_namespace = true
-  atomic           = true
-  values           = ["values.yaml"]
-  depends_on = [ azurerm_kubernetes_cluster.stvaks ]
-}
+# resource "helm_release" "gitlab" {
+#   name             = "gitlab-omnibus"
+#   chart            = "../charts/gitlab-omnibus"
+#   namespace        = "gitlab"
+#   create_namespace = true
+#   atomic           = true
+#   values           = ["values.yaml"]
+#   depends_on = [ azurerm_kubernetes_cluster.stvaks ]
+# }
