@@ -55,4 +55,5 @@ resource "helm_release" "gitlab" {
   create_namespace = true
   atomic           = true
   values           = ["values.yaml"]
+  depends_on = [ azurerm_kubernetes_cluster.stvaks ]
 }
