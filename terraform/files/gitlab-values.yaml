@@ -1,0 +1,12 @@
+# Default values for gitlab-omnibus.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: gitlab/gitlab-ce
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "13.8.2-ce.0"
+
+nameOverride: ""
+fullnameOverride: "gitlab"

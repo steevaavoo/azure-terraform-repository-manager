@@ -54,6 +54,6 @@ resource "helm_release" "gitlab" {
   namespace        = "gitlab"
   create_namespace = true
   atomic           = true
-  values           = ["../charts/gitlab-omnibus/values.yaml"]
+  values           = ["${file("${path.module}/files/gitlab-values.yaml")}"]
   depends_on       = [azurerm_kubernetes_cluster.stvaks]
 }
