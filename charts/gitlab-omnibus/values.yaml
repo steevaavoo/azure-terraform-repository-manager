@@ -8,7 +8,7 @@ image:
   repository: gitlab/gitlab-ce
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "13.8.0-ce.0"
+  tag: "13.8.3-ce.0"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: LoadBalancer
-  port: 443
+  port: 80
 
 ingress:
   enabled: false
