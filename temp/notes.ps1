@@ -33,3 +33,18 @@ kustomize build ~/someApp | kubectl apply -f -
 kubectl apply -h
 kubectl apply --kustomize .
 
+# Helm Manual Install Testing
+kubectl config current-context
+
+kubectl create namespace test-gitlab
+
+# upgrade / install - be sure you are in the correct folder
+Set-Location charts\gitlab-omnibus
+helm upgrade test-gitlab ./ -f values.yaml --install --atomic --namespace test-gitlab --debug --dry-run
+
+# Do it for real
+helm upgrade test-gitlab ./ -f values.yaml --install --atomic --namespace test-gitlab --debug
+
+# cleanup
+helm uninstall test-gitlab --namespace test-gitlab
+kubectl delete namespace test-gitlab

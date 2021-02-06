@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "gitlab-omnibus.fullname" . }}
+  labels:
+    {{- include "gitlab-omnibus.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "gitlab-omnibus.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "gitlab-omnibus.serviceAccountName" . }}
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        {{- include "gitlab-omnibus.labels" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        - name: https
+          containerPort: 443
+          protocol: TCP
+        volumeMounts:
+          # /var/opt/gitlab (main app storage, repos etc)
+        - mountPath: "/var/opt/gitlab"
+          name: {{ include "gitlab-omnibus.fullname" . }}-main-mount
+          # /var/log/gitlab (logs)
+        - mountPath: "/var/log/gitlab"
+          name: {{ include "gitlab-omnibus.fullname" . }}-logs-mount
+          # /etc/gitlab (config storage)
+        - mountPath: "/etc/gitlab"
+          name: {{ include "gitlab-omnibus.fullname" . }}-config-mount
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ include "gitlab-omnibus.fullname" . }}-main-mount
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "default"
+      resources:
+        requests:
+          storage: 3Gi
+  - metadata:
+      name: {{ include "gitlab-omnibus.fullname" . }}-logs-mount
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "default"
+      resources:
+        requests:
+          storage: 2Gi
+  - metadata:
+      name: {{ include "gitlab-omnibus.fullname" . }}-config-mount
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "default"
+      resources:
+        requests:
+          storage: 1Gi

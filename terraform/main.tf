@@ -5,11 +5,11 @@ resource "azurerm_resource_group" "stvrg" {
 
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_registry
 resource "azurerm_container_registry" "stvacr" {
-  name                     = var.container_registry_name
-  resource_group_name      = azurerm_resource_group.stvrg.name
-  location                 = azurerm_resource_group.stvrg.location
-  sku                      = var.acr_sku
-  admin_enabled            = var.acr_admin_enabled
+  name                = var.container_registry_name
+  resource_group_name = azurerm_resource_group.stvrg.name
+  location            = azurerm_resource_group.stvrg.location
+  sku                 = var.acr_sku
+  admin_enabled       = var.acr_admin_enabled
 }
 
 # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster
@@ -46,4 +46,13 @@ resource "azurerm_role_assignment" "stvacr" {
   scope                = azurerm_container_registry.stvacr.id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_kubernetes_cluster.stvaks.kubelet_identity[0].object_id
+}
+
+resource "helm_release" "gitlab" {
+  name             = "gitlab-omnibus"
+  chart            = "../charts/gitlab-omnibus"
+  namespace        = "gitlab"
+  create_namespace = true
+  atomic           = true
+  values           = ["values.yaml"]
 }
