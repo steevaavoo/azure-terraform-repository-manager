@@ -8,13 +8,13 @@ spec:
   selector:
     matchLabels:
       {{- include "gitlab-omnibus.selectorLabels" . | nindent 6 }}
-  serviceAccountName: {{ include "gitlab-omnibus.serviceAccountName" . }}
+  serviceName: {{ include "gitlab-omnibus.serviceAccountName" . }}
   replicas: 1 # by default is 1
   template:
     metadata:
       labels:
         {{- include "gitlab-omnibus.labels" . | nindent 8 }}
-        spec:
+    spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: {{ .Chart.Name }}
